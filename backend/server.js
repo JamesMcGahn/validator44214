@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 const app = require('./app');
 
 process.on('uncaughtException', (err) => {
