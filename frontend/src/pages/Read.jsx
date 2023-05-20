@@ -21,10 +21,6 @@ function Read() {
   );
 
   useEffect(() => {
-    if (!ediPayload) {
-      navigate('/');
-    }
-
     if (isLoading) {
       return <Spinner />;
     }
@@ -46,6 +42,15 @@ function Read() {
 
   return (
     <Container>
+      {!ediPayload && (
+        <Card>
+          <Card.Body>
+            <Card.Title>There is not a file uploaded yet.</Card.Title>
+            <p>Please go back to the upload page and upload a x12 file.</p>
+          </Card.Body>
+        </Card>
+      )}
+
       {ediPayload && ediPayload?.Result.Status === 'success' && (
         <>
           <EdiForm ediPayload={ediPayload} />
@@ -67,9 +72,9 @@ function Read() {
           })}
         </Alert>
       )}
-      <Card>
-        <Container>
-          {ediPayload && (
+      {ediPayload && (
+        <Card>
+          <Container>
             <AceEditor
               mode="javascript"
               theme="monokai"
@@ -80,9 +85,9 @@ function Read() {
               showGutter={true}
               highlightActiveLine={true}
             />
-          )}
-        </Container>
-      </Card>
+          </Container>
+        </Card>
+      )}
     </Container>
   );
 }

@@ -3,9 +3,12 @@ import Alert from 'react-bootstrap/Alert';
 import { useSelector } from 'react-redux';
 import Spinner from '../components/ui/Spinner';
 import { Container } from 'react-bootstrap/';
+import { Card } from 'react-bootstrap';
 
 function Validate() {
-  const { isLoading, validatePayload } = useSelector((state) => state.edi);
+  const { isLoading, validatePayload, ediPayload } = useSelector(
+    (state) => state.edi,
+  );
 
   if (isLoading) {
     return <Spinner />;
@@ -13,6 +16,21 @@ function Validate() {
 
   return (
     <Container>
+      {!validatePayload && (
+        <Card>
+          <Card.Body>
+            <Card.Title>
+              There is not a file {!ediPayload ? 'uploaded' : 'validated'} yet.
+            </Card.Title>
+            <p>
+              Please go back to the
+              {!ediPayload
+                ? ' upload page and upload a x12 file.'
+                : ' read page and validate a file.'}
+            </p>
+          </Card.Body>
+        </Card>
+      )}
       {validatePayload && validatePayload?.Status === 'success' && (
         <Alert variant="success">
           <Alert.Heading>The file was successfully validated.</Alert.Heading>
