@@ -21,7 +21,7 @@ function EdiForm({ ediPayload }) {
                   </InputGroup.Text>
                   <Form.Control
                     aria-label="Sender ISA"
-                    placeholder={ediPayload.data[0].ISA.SenderIDQualifier_5}
+                    placeholder={ediPayload.ISA.SenderIDQualifier_5}
                     readOnly
                   />
                 </InputGroup>
@@ -33,7 +33,7 @@ function EdiForm({ ediPayload }) {
                   </InputGroup.Text>
                   <Form.Control
                     aria-label="Sender ISA"
-                    placeholder={ediPayload.data[0].ISA.InterchangeSenderID_6}
+                    placeholder={ediPayload.ISA.InterchangeSenderID_6}
                     readOnly
                   />
                 </InputGroup>
@@ -47,7 +47,7 @@ function EdiForm({ ediPayload }) {
                   </InputGroup.Text>
                   <Form.Control
                     aria-label="Reciever Qualifer"
-                    placeholder={ediPayload.data[0].ISA.ReceiverIDQualifier_7}
+                    placeholder={ediPayload.ISA.ReceiverIDQualifier_7}
                     readOnly
                   />
                 </InputGroup>
@@ -59,7 +59,7 @@ function EdiForm({ ediPayload }) {
                   </InputGroup.Text>
                   <Form.Control
                     aria-label="Reciever Qualifer"
-                    placeholder={ediPayload.data[0].ISA.InterchangeReceiverID_8}
+                    placeholder={ediPayload.ISA.InterchangeReceiverID_8}
                     readOnly
                   />
                 </InputGroup>
@@ -72,7 +72,7 @@ function EdiForm({ ediPayload }) {
                   <Form.Control
                     aria-label="Reciever Qualifer"
                     placeholder={
-                      ediPayload.data[0].ISA.InterchangeControlVersionNumber_12
+                      ediPayload.ISA.InterchangeControlVersionNumber_12
                     }
                     readOnly
                   />
@@ -85,7 +85,7 @@ function EdiForm({ ediPayload }) {
                   </InputGroup.Text>
                   <Form.Control
                     aria-label="Reciever Qualifer"
-                    placeholder={ediPayload.data[0].ISA.UsageIndicator_15}
+                    placeholder={ediPayload.ISA.UsageIndicator_15}
                     readOnly
                   />
                 </InputGroup>
@@ -95,7 +95,7 @@ function EdiForm({ ediPayload }) {
         </Card.Body>
       </Card>
 
-      {ediPayload.data[0].Groups.map((group) => {
+      {ediPayload.Groups.map((group) => {
         return (
           <React.Fragment key={`${group.GroupControlNumber_6}-control`}>
             <Card>
