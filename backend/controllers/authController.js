@@ -1,7 +1,6 @@
 const User = require('../models/userModel');
 const signToken = require('../utils/signToken');
 const catchAsyncFn = require('../utils/catchAsyncFn');
-const { promisify } = require('util');
 const AppError = require('../utils/appError');
 
 const cookieOptions = {
@@ -29,9 +28,13 @@ exports.login = catchAsyncFn(async (req, res, next) => {
 
   res.cookie('jwt', token, cookieOptions);
 
+  const userInfo = {
+    email: user.email,
+    token,
+  };
   res.status(201).json({
     status: 'success',
-    token,
+    user: userInfo,
   });
 });
 
