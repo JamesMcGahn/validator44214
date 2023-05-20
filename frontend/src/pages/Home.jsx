@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { read, reset } from '../features/edi/ediSlice';
 import { useNavigate } from 'react-router-dom';
-
+import Spinner from '../components/ui/Spinner';
 import Container from 'react-bootstrap/esm/Container';
 import UploadFile from '../components/forms/UploadFile';
 
@@ -19,8 +19,7 @@ function Home() {
   };
 
   useEffect(() => {
-    console.log(ediPayload);
-    if (!isLoading && isSuccess && ediPayload.length > 0) {
+    if (!isLoading && isSuccess && ediPayload) {
       dispatch(reset());
       navigate('/read');
     }
@@ -30,7 +29,7 @@ function Home() {
 
   return (
     <Container>
-      {!isLoading ? <UploadFile cb={fileUpload} /> : 'loading'}
+      {!isLoading ? <UploadFile cb={fileUpload} /> : <Spinner />}
     </Container>
   );
 }
