@@ -1,10 +1,13 @@
 require('dotenv').config();
+const dbConnect = require('./utils/dbConnect');
 const app = require('./app');
 
 process.on('uncaughtException', (err) => {
   console.log(err.name, err.message);
   process.exit(1);
 });
+
+dbConnect();
 
 const port = process.env.PORT || 5000;
 const server = app.listen(port, () => {
