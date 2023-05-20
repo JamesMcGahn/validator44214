@@ -4,6 +4,7 @@ import { Container, Form, InputGroup, Button } from 'react-bootstrap/';
 import { useSelector, useDispatch } from 'react-redux';
 import { login, reset } from '../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
+import Spinner from '../components/ui/Spinner';
 
 function Login() {
   const navigate = useNavigate();
@@ -13,8 +14,12 @@ function Login() {
     password: '',
   });
   const [validated, setValidated] = useState(false);
+  const [errors, setErrors] = useState({
+    email: false,
+    password: false,
+  });
   const { password, email } = formData;
-  const { token, isLoading, isError, isSuccess, message } = useSelector(
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth,
   );
 
@@ -23,31 +28,47 @@ function Login() {
       toast.error(message);
     }
 
-    if (isSuccess && token) {
+    if (isSuccess && user.token) {
       navigate('/');
     }
     dispatch(reset());
-  }, [isError, isSuccess, token, message, navigate, dispatch]);
+  }, [isError, isSuccess, user, message, navigate, dispatch]);
 
   const handleOnChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
+
+    e.currentTarget.checkValidity()
+      ? setErrors((prevState) => ({
+          ...prevState,
+          [e.target.name]: false,
+        }))
+      : setErrors((prevState) => ({
+          ...prevState,
+          [e.target.name]: true,
+        }));
+
+    setValidated(true);
   };
+
+  if (isLoading) {
+    <Spinner />;
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
 
-    if (!form.checkValidity()) {
-      console.log('here-check');
+    if (form.checkValidity() === false) {
       event.stopPropagation();
-      setValidated(false);
     }
-    setValidated(true);
 
-    if (validated && form.checkValidity()) {
+    if (errors.email || errors.password) {
+      toast.error(`Enter a ${errors.email ? 'valid email' : 'password'}`);
+    }
+    if (!errors.email && !errors.password) {
       const userData = { email, password };
       dispatch(login(userData));
     }
