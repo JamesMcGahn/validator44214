@@ -5,6 +5,7 @@ const initialState = {
   ediPayload: [],
   isError: false,
   isLoading: false,
+  isSuccess: false,
 };
 
 export const read = createAsyncThunk('edi/read', async (file, thunkAPI) => {
@@ -21,7 +22,12 @@ export const ediSlice = createSlice({
   name: 'edi',
   initialState,
   reducers: {
-    reset: (state) => initialState,
+    reset: (state) => {
+      state.isLoading = false;
+      state.isSuccess = false;
+      state.isError = false;
+      state.message = false;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -31,6 +37,7 @@ export const ediSlice = createSlice({
       .addCase(read.fulfilled, (state, action) => {
         state.isLoading = false;
         state.ediPayload = action.payload;
+        state.isSuccess = true;
       })
       .addCase(read.rejected, (state, action) => {
         state.isLoading = false;
