@@ -54,3 +54,14 @@ exports.register = catchAsyncFn(async (req, res, next) => {
     token,
   });
 });
+
+exports.logout = catchAsyncFn(async (req, res, next) => {
+  res.cookie('jwt', 'expired', {
+    expires: new Date(Date.now() + 10 * 1000),
+    http: true,
+  });
+  console.log('logging out');
+  res.status(200).json({
+    status: 'success',
+  });
+});
