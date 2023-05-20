@@ -28,7 +28,7 @@ function Login() {
       toast.error(message);
     }
 
-    if (isSuccess && user.token) {
+    if (isSuccess && user?.token) {
       navigate('/');
     }
     dispatch(reset());

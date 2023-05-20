@@ -3,17 +3,15 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
+import { logout, reset } from '../../features/auth/authSlice';
 import './header.css';
 
 function Header() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
 
-  console.log(token);
-
-  const handleNavLinkClick = (path) => {
-    navigate(path);
+  const handleLogOut = () => {
+    dispatch(logout());
   };
 
   return (
@@ -63,7 +61,7 @@ function Header() {
           </Nav>
 
           <Nav>
-            {token ? (
+            {!user?.token ? (
               <Nav.Item className="px-4">
                 <NavLink
                   to="/login"
@@ -77,12 +75,13 @@ function Header() {
             ) : (
               <Nav.Item className="px-4">
                 <NavLink
-                  to="/register"
+                  to="/login"
+                  onClick={handleLogOut}
                   className={({ isActive, isPending }) =>
                     isActive ? 'top-nav-link active' : 'top-nav-link'
                   }
                 >
-                  Register
+                  Logout
                 </NavLink>
               </Nav.Item>
             )}
