@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import { Container, Form, InputGroup, Button } from 'react-bootstrap/';
 import { useSelector, useDispatch } from 'react-redux';
 import { login, reset } from '../features/auth/authSlice';
@@ -19,8 +20,7 @@ function Login() {
 
   useEffect(() => {
     if (isError) {
-      console.log('hhhhh', message);
-      //   toast.error(message);
+      toast.error(message);
     }
 
     if (isSuccess && token) {
