@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Read from './pages/Read';
 import Login from './pages/Login';
 import Validate from './pages/Validate';
+import PrivateRoute from './components/utils/PrivateRoute';
 import './App.css';
 
 function App() {
@@ -16,9 +17,30 @@ function App() {
         <Header />
         <Container className="main-container">
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/read" element={<Read />} />
-            <Route path="/validate" element={<Validate />} />
+            <Route
+              path="/"
+              element={
+                <PrivateRoute>
+                  <Home />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/read"
+              element={
+                <PrivateRoute>
+                  <Read />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/validate"
+              element={
+                <PrivateRoute>
+                  <Validate />
+                </PrivateRoute>
+              }
+            />
             <Route path="/login" element={<Login />} />
           </Routes>
         </Container>
