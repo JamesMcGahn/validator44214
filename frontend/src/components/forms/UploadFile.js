@@ -2,17 +2,26 @@ import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
+import { toast } from 'react-toastify';
 
 function UploadFile({ cb }) {
   const [selectedFile, setSelectedFile] = useState();
 
   const onFileSelection = (e) => {
-    setSelectedFile(e.target.files[0]);
+    const fileName = e.target.files[0]?.name;
+
+    if (fileName && fileName.match(/\.(.+)$/)[1] !== 'x12') {
+      toast.error('Please Select a .x12 File');
+    } else {
+      setSelectedFile(e.target.files[0]);
+    }
   };
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    cb(selectedFile);
+    if (selectedFile) {
+      cb(selectedFile);
+    }
   };
 
   return (
