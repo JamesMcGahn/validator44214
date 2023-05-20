@@ -8,8 +8,15 @@ const login = async (userData) => {
   return response.data;
 };
 
+const logout = async () => {
+  const response = await axios.get(`${API_URL}/logout`);
+
+  return response.data;
+};
+
 const authService = {
   login,
+  logout,
 };
 
 export default authService;
