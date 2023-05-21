@@ -59,7 +59,7 @@ export const ediSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(validate.pending, (state) => {
+      .addCase(validate.pending, (state, action) => {
         state.isLoading = true;
       })
       .addCase(validate.fulfilled, (state, action) => {
