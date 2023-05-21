@@ -11,6 +11,7 @@ function UploadFile({ cb }) {
     const fileName = e.target.files[0]?.name;
 
     if (fileName && fileName.match(/\.(.+)$/)[1] !== 'x12') {
+      setSelectedFile('');
       toast.error('Please Select a .x12 File');
     } else {
       setSelectedFile(e.target.files[0]);
@@ -21,6 +22,8 @@ function UploadFile({ cb }) {
     e.preventDefault();
     if (selectedFile) {
       cb(selectedFile);
+    } else {
+      toast.error('Please Select a .x12 File');
     }
   };
 
