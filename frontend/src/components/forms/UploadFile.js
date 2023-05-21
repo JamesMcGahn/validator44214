@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import { toast } from 'react-toastify';
+import './uploadFile.css';
 
 function UploadFile({ cb }) {
   const [selectedFile, setSelectedFile] = useState();
@@ -28,15 +29,16 @@ function UploadFile({ cb }) {
   };
 
   return (
-    <Container>
+    <Container id="upload-x12-main">
       <Form onSubmit={onSubmitHandler}>
         <Form.Group controlId="formFile" className="mb-3">
-          <Form.Label>Default file input example</Form.Label>
+          <Form.Label>Upload a .x12 File to get started.</Form.Label>
           <Form.Control type="file" onChange={onFileSelection} />
         </Form.Group>
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
+
+        <Container className="d-flex justify-content-end" fluid>
+          <Button type="submit">Upload</Button>
+        </Container>
       </Form>
     </Container>
   );

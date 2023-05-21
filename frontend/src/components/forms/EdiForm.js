@@ -5,11 +5,12 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import './ediForm.css';
 
 function EdiForm({ ediPayload }) {
   return (
-    <Container>
-      <Card>
+    <Container id="edi-form-main">
+      <Card className="edi-form-card">
         <Card.Body>
           <Card.Title>Interchange</Card.Title>
           <Container>
@@ -98,7 +99,7 @@ function EdiForm({ ediPayload }) {
       {ediPayload.Groups.map((group) => {
         return (
           <React.Fragment key={`${group.GroupControlNumber_6}-control`}>
-            <Card>
+            <Card className="edi-form-card">
               <Card.Body>
                 <Card.Title>Group</Card.Title>
                 <Container>
@@ -136,7 +137,7 @@ function EdiForm({ ediPayload }) {
                 <React.Fragment
                   key={`${trans.ST.TransactionSetControlNumber_02}-control`}
                 >
-                  <Card>
+                  <Card className="edi-form-card">
                     <Card.Body>
                       <Card.Title>
                         {`Transaction - ${trans.ST.TransactionSetIdentifierCode_01} -
@@ -144,7 +145,9 @@ function EdiForm({ ediPayload }) {
                       </Card.Title>
 
                       <Container>
-                        <Card.Subtitle>B10</Card.Subtitle>
+                        <Card.Subtitle className="edi-card-subtitle">
+                          B10
+                        </Card.Subtitle>
 
                         <Row>
                           <Col>
@@ -195,7 +198,9 @@ function EdiForm({ ediPayload }) {
                           <React.Fragment
                             key={`${i}-L11-${trans.ST.TransactionSetControlNumber_02}`}
                           >
-                            <Card.Subtitle>L11</Card.Subtitle>
+                            <Card.Subtitle className="edi-card-subtitle">
+                              L11
+                            </Card.Subtitle>
 
                             <Row>
                               <Col>
@@ -231,13 +236,13 @@ function EdiForm({ ediPayload }) {
                             <React.Fragment
                               key={`${LX.LX.AssignedNumber_01}-LX`}
                             >
-                              <Card.Subtitle>
+                              <Card.Subtitle className="edi-card-subtitle">
                                 LX Loop - {LX.LX.AssignedNumber_01}
                               </Card.Subtitle>
-                              <Container>
+                              <Container id="lx-loop-container">
                                 <Card>
                                   <Card.Body>
-                                    <Card.Subtitle>
+                                    <Card.Subtitle className="edi-card-subtitle">
                                       AT7 Loop - {LX.LX.AssignedNumber_01}
                                     </Card.Subtitle>
                                     {LX.AT7Loop.map((AT7L, i) => {
@@ -317,7 +322,9 @@ function EdiForm({ ediPayload }) {
                                               </InputGroup>
                                             </Col>
                                           </Row>
-                                          <Card.Subtitle>MS1</Card.Subtitle>
+                                          <Card.Subtitle className="edi-card-subtitle">
+                                            MS1
+                                          </Card.Subtitle>
                                           <Row>
                                             <Col>
                                               <InputGroup className="mb-3">
@@ -428,7 +435,9 @@ function EdiForm({ ediPayload }) {
                                         </React.Fragment>
                                       );
                                     })}
-                                    <Card.Subtitle>L11</Card.Subtitle>
+                                    <Card.Subtitle className="edi-card-subtitle">
+                                      L11
+                                    </Card.Subtitle>
                                     <Row>
                                       <Col>
                                         <InputGroup className="mb-3">

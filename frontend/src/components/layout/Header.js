@@ -2,8 +2,8 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { useSelector, useDispatch } from 'react-redux';
-import { NavLink, useNavigate, useLocation } from 'react-router-dom';
-import { logout, reset } from '../../features/auth/authSlice';
+import { NavLink } from 'react-router-dom';
+import { logout } from '../../features/auth/authSlice';
 import './header.css';
 
 function Header() {
