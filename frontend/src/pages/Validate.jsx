@@ -43,7 +43,7 @@ function Validate() {
           {ediPayload && ediPayload?.Result.Status === 'success' && (
             <Col>
               <Container className="d-flex justify-content-end" fluid>
-                {validatePayload ? (
+                {validatePayload || ediPayload?.Result.Status !== 'success' ? (
                   <Button onClick={() => navigate('/read')}> Read File</Button>
                 ) : (
                   <Button onClick={handleOnClick}> Validate File </Button>
@@ -58,13 +58,18 @@ function Validate() {
           <Card className="validate-card">
             <Card.Body>
               <Card.Title>
-                There is not a file {!ediPayload ? 'uploaded' : 'validated'}{' '}
-                yet.
+                {!ediPayload
+                  ? 'There is not a file uploaded yet.'
+                  : ediPayload?.Result.Status === 'success'
+                  ? 'There is not a file validated yet.'
+                  : 'Return the Read Page'}
               </Card.Title>
               <p>
                 {!ediPayload
                   ? 'Please go back to the upload page and upload a x12 file.'
-                  : 'Please validate a file.'}
+                  : ediPayload?.Result.Status === 'success'
+                  ? 'Please validate a file.'
+                  : 'There are issues with reading file that was uploaded. Return the Read page.'}
               </p>
               {ediPayload && ediPayload?.Result.Status === 'success' && (
                 <Container className="d-flex justify-content-end" fluid>
