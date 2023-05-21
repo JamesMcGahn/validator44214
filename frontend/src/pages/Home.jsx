@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { read, reset } from '../features/edi/ediSlice';
 import { useNavigate } from 'react-router-dom';
@@ -14,7 +14,6 @@ function Home() {
   );
 
   const fileUpload = (file) => {
-    console.log(file, 'here');
     dispatch(read(file));
   };
 
@@ -28,7 +27,7 @@ function Home() {
   }, [dispatch, ediPayload, isSuccess, navigate, isLoading]);
 
   return (
-    <Container>
+    <Container fluid>
       {!isLoading ? <UploadFile cb={fileUpload} /> : <Spinner />}
     </Container>
   );

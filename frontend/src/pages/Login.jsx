@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { login, reset } from '../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../components/ui/Spinner';
+import './login.css';
 
 function Login() {
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ function Login() {
     }
 
     if (isSuccess && user?.token) {
+      toast.success(`Welcome back ${user.email}`);
       navigate('/');
     }
     dispatch(reset());
@@ -75,11 +77,12 @@ function Login() {
   };
 
   return (
-    <Container>
-      <Container>
+    <Container className="login-page-main">
+      <h1 id="login-h1">Login</h1>
+      <Container id="login-form-container">
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
           <InputGroup className="mb-3">
-            <InputGroup.Text id="basic-addon1">Email</InputGroup.Text>
+            <InputGroup.Text id="login-email-input">Email</InputGroup.Text>
             <Form.Control
               placeholder="Enter Your Email"
               aria-label="Email"
@@ -110,7 +113,9 @@ function Login() {
               Please provide your password.
             </Form.Control.Feedback>
           </InputGroup>
-          <Button type="submit">Login</Button>
+          <Container className="d-flex justify-content-end" fluid>
+            <Button type="submit">Login</Button>
+          </Container>
         </Form>
       </Container>
     </Container>
