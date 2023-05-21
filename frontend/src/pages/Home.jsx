@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import Spinner from '../components/ui/Spinner';
 import Container from 'react-bootstrap/esm/Container';
 import UploadFile from '../components/forms/UploadFile';
+import './home.css';
 
 function Home() {
   const dispatch = useDispatch();
@@ -20,18 +21,23 @@ function Home() {
   };
 
   useEffect(() => {
-    if (!isLoading && isSuccess && ediPayload) {
+    if (isSuccess && ediPayload) {
       toast.success('File Read Succesfully');
       dispatch(reset());
       navigate('/read');
     }
 
     dispatch(reset());
-  }, [dispatch, ediPayload, isSuccess, navigate, isLoading]);
+  }, [dispatch, ediPayload, isSuccess, navigate]);
 
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  console.log(isLoading, 'loading - comp');
   return (
-    <Container fluid>
-      {!isLoading ? <UploadFile cb={fileUpload} /> : <Spinner />}
+    <Container fluid id="home-main-container">
+      <UploadFile cb={fileUpload} />
     </Container>
   );
 }

@@ -30,9 +30,9 @@ function Login() {
     }
 
     if (isSuccess && user?.token) {
+      dispatch(reset());
       navigate('/');
     }
-    dispatch(reset());
   }, [isError, isSuccess, user, message, navigate, dispatch]);
 
   const handleOnChange = (e) => {
@@ -55,7 +55,7 @@ function Login() {
   };
 
   if (isLoading) {
-    <Spinner />;
+    return <Spinner />;
   }
 
   const handleSubmit = (event) => {

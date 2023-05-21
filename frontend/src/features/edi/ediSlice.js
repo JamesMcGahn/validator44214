@@ -46,7 +46,7 @@ export const ediSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(read.pending, (state) => {
+      .addCase(read.pending, (state, action) => {
         state.isLoading = true;
       })
       .addCase(read.fulfilled, (state, action) => {
