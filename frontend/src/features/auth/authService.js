@@ -13,8 +13,15 @@ const logout = async () => {
 
   return response.data;
 };
+
 const loggedIn = async () => {
   const response = await axios.get(`${API_URL}/loggedIn`);
+
+  return response.data;
+};
+
+const register = async (userData) => {
+  const response = await axios.post(`${API_URL}/register`, userData);
 
   return response.data;
 };
@@ -23,6 +30,7 @@ const authService = {
   login,
   logout,
   loggedIn,
+  register,
 };
 
 export default authService;

@@ -39,6 +39,12 @@ exports.login = catchAsyncFn(async (req, res, next) => {
 });
 
 exports.register = catchAsyncFn(async (req, res, next) => {
+  const emailRegex = new RegExp(process.env.EMAIL_REGEX);
+
+  if (!emailRegex.test(req.body.email)) {
+    return next(new AppError('Invalid email address', 401));
+  }
+
   const newUser = await User.create({
     email: req.body.email,
     password: req.body.password,
@@ -49,9 +55,14 @@ exports.register = catchAsyncFn(async (req, res, next) => {
 
   res.cookie('jwt', token, cookieOptions);
 
+  const user = {
+    email: newUser.email,
+    token,
+  };
+
   res.status(201).json({
     status: 'success',
-    token,
+    user,
   });
 });
 
