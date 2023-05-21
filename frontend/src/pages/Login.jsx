@@ -30,7 +30,6 @@ function Login() {
     }
 
     if (isSuccess && user?.token) {
-      toast.success(`Welcome back ${user.email}`);
       navigate('/');
     }
     dispatch(reset());

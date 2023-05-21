@@ -42,6 +42,7 @@ export const ediSlice = createSlice({
       state.isError = false;
       state.message = false;
     },
+    resetAll: (state) => initialState,
   },
   extraReducers: (builder) => {
     builder
@@ -74,5 +75,5 @@ export const ediSlice = createSlice({
   },
 });
 
-export const { reset } = ediSlice.actions;
+export const { reset, resetAll } = ediSlice.actions;
 export default ediSlice.reducer;

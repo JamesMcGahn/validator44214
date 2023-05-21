@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { Card, Container, Button } from 'react-bootstrap/';
 import AceEditor from 'react-ace';
 import Spinner from '../components/ui/Spinner';
+import { toast } from 'react-toastify';
+import './read.css';
 
 import 'ace-builds/webpack-resolver';
 import 'ace-builds/src-noconflict/mode-javascript';
@@ -21,24 +23,25 @@ function Read() {
   );
 
   useEffect(() => {
-    if (isLoading) {
-      return <Spinner />;
-    }
-
     if (isSuccess && validatePayload) {
       dispatch(reset());
       navigate('/validate');
     }
-  }, [ediPayload, navigate, isLoading, isSuccess, validatePayload]);
+  }, [ediPayload, navigate, isSuccess, validatePayload]);
 
   const handleOnClick = () => {
     if (ediPayload && !validatePayload) {
       dispatch(validate(ediPayload));
+      toast.success('File Validated - Review Report');
       navigate('/validate');
     } else {
       navigate('/validate');
     }
   };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <Container>
@@ -53,8 +56,14 @@ function Read() {
 
       {ediPayload && ediPayload?.Result.Status === 'success' && (
         <>
+          <Container className="d-flex justify-content-end" fluid>
+            <Button onClick={handleOnClick}> Validate File </Button>
+          </Container>
           <EdiForm ediPayload={ediPayload} />
-          <Button onClick={handleOnClick}> Validate File </Button>
+
+          <Container className="d-flex justify-content-end" fluid>
+            <Button onClick={handleOnClick}> Validate File </Button>
+          </Container>
         </>
       )}
 
@@ -73,7 +82,7 @@ function Read() {
         </Alert>
       )}
       {ediPayload && (
-        <Card>
+        <Card id="edi-payload-editor">
           <Container>
             <AceEditor
               mode="javascript"

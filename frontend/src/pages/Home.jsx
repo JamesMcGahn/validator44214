@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { read, reset } from '../features/edi/ediSlice';
+import { read, reset, resetAll } from '../features/edi/ediSlice';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Spinner from '../components/ui/Spinner';
 import Container from 'react-bootstrap/esm/Container';
 import UploadFile from '../components/forms/UploadFile';
@@ -14,11 +15,13 @@ function Home() {
   );
 
   const fileUpload = (file) => {
+    dispatch(resetAll());
     dispatch(read(file));
   };
 
   useEffect(() => {
     if (!isLoading && isSuccess && ediPayload) {
+      toast.success('File Read Succesfully');
       dispatch(reset());
       navigate('/read');
     }
