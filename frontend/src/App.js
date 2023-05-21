@@ -4,7 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Home from './pages/Home';
 import Read from './pages/Read';
-import Login from './pages/Login';
+import LoginRegister from './pages/LoginRegister';
 import Validate from './pages/Validate';
 import PrivateRoute from './components/utils/PrivateRoute';
 import { useSelector, useDispatch } from 'react-redux';
@@ -53,7 +53,14 @@ function App() {
                 </PrivateRoute>
               }
             />
-            <Route path="/login" element={<Login />} />
+            <Route
+              path="/login"
+              element={<LoginRegister registerForm={false} />}
+            />
+            <Route
+              path="/register"
+              element={<LoginRegister registerForm={true} />}
+            />
           </Routes>
         </Layout>
       </Router>
