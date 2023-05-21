@@ -5,7 +5,6 @@ const User = require('../models/userModel');
 const AppError = require('../utils/appError');
 
 exports.protect = catchAsyncFn(async (req, res, next) => {
-  console.log(req.cookies.jwt);
   const { authorization } = req.headers;
   let token;
 
@@ -13,6 +12,10 @@ exports.protect = catchAsyncFn(async (req, res, next) => {
     token = authorization.split(' ')[1];
   } else {
     token = req.cookies.jwt;
+  }
+
+  if (req.route.path === '/loggedIn' && !token) {
+    return next(new AppError('You are not logged in', 200));
   }
 
   if (!token) {
