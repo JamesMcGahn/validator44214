@@ -1,3 +1,17 @@
 #edi-payload-editor {
   margin-top: 1rem;
 }
+
+#read-container {
+  min-height: 60vh;
+  min-width: 85vw;
+}
+
+#read-card-container {
+  max-width: 50vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+}

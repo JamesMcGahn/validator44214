@@ -4,10 +4,9 @@ import Alert from 'react-bootstrap/Alert';
 import { useSelector, useDispatch } from 'react-redux';
 import { validate, reset } from '../features/edi/ediSlice';
 import { useNavigate } from 'react-router-dom';
-import { Card, Container, Button } from 'react-bootstrap/';
+import { Card, Container, Button, Row, Col } from 'react-bootstrap/';
 import AceEditor from 'react-ace';
 import Spinner from '../components/ui/Spinner';
-import { toast } from 'react-toastify';
 import './read.css';
 
 import 'ace-builds/webpack-resolver';
@@ -27,12 +26,11 @@ function Read() {
       dispatch(reset());
       navigate('/validate');
     }
-  }, [ediPayload, navigate, isSuccess, validatePayload]);
+  }, [ediPayload, navigate, isSuccess, validatePayload, dispatch]);
 
   const handleOnClick = () => {
     if (ediPayload && !validatePayload) {
       dispatch(validate(ediPayload));
-      toast.success('File Validated - Review Report');
       navigate('/validate');
     } else {
       navigate('/validate');
@@ -44,21 +42,23 @@ function Read() {
   }
 
   return (
-    <Container>
-      {!ediPayload && (
-        <Card>
-          <Card.Body>
-            <Card.Title>There is not a file uploaded yet.</Card.Title>
-            <p>Please go back to the upload page and upload a x12 file.</p>
-          </Card.Body>
-        </Card>
-      )}
-
+    <Container id="read-container">
+      <Container>
+        <Row>
+          <Col>
+            <h1>Read File</h1>
+          </Col>
+          {ediPayload && ediPayload?.Result.Status === 'success' && (
+            <Col>
+              <Container className="d-flex justify-content-end" fluid>
+                <Button onClick={handleOnClick}> Validate File </Button>
+              </Container>
+            </Col>
+          )}
+        </Row>
+      </Container>
       {ediPayload && ediPayload?.Result.Status === 'success' && (
         <>
-          <Container className="d-flex justify-content-end" fluid>
-            <Button onClick={handleOnClick}> Validate File </Button>
-          </Container>
           <EdiForm ediPayload={ediPayload} />
 
           <Container className="d-flex justify-content-end" fluid>
@@ -67,20 +67,37 @@ function Read() {
         </>
       )}
 
-      {ediPayload && ediPayload?.Result.Status === 'error' && (
-        <Alert variant="danger">
-          <Alert.Heading>There was an error reading the file.</Alert.Heading>
-          {ediPayload?.Result.Details.map((error, i) => {
-            return (
-              <React.Fragment key={`${i}-error`}>
-                <p>Message: {error.Message}</p>
-                <hr />
-                <p className="mb-0">Value: {error.Value}</p>
-              </React.Fragment>
-            );
-          })}
-        </Alert>
+      {!ediPayload && (
+        <Container id="read-card-container">
+          <Card>
+            <Card.Body>
+              <Card.Title>There is not a file uploaded yet.</Card.Title>
+              <p>Please go back to the upload page and upload a x12 file.</p>
+              <Container className="d-flex justify-content-end" fluid>
+                <Button onClick={() => navigate('/')}> Upload Page </Button>
+              </Container>
+            </Card.Body>
+          </Card>
+        </Container>
       )}
+
+      {ediPayload && ediPayload?.Result.Status === 'error' && (
+        <Container id="read-card-container">
+          <Alert variant="danger">
+            <Alert.Heading>There was an error reading the file.</Alert.Heading>
+            {ediPayload?.Result.Details.map((error, i) => {
+              return (
+                <React.Fragment key={`${i}-error`}>
+                  <p>Message: {error.Message}</p>
+                  <hr />
+                  <p className="mb-0">Value: {error.Value}</p>
+                </React.Fragment>
+              );
+            })}
+          </Alert>
+        </Container>
+      )}
+
       {ediPayload && (
         <Card id="edi-payload-editor">
           <Container>

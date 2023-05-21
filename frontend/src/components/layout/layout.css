@@ -1,7 +1,7 @@
 .layout-main-container {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   padding: 2rem 0;
   min-height: 89vh;
 }
