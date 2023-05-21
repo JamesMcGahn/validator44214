@@ -60,8 +60,23 @@ exports.logout = catchAsyncFn(async (req, res, next) => {
     expires: new Date(Date.now() + 10 * 1000),
     http: true,
   });
-  console.log('logging out');
+
   res.status(200).json({
     status: 'success',
+  });
+});
+
+exports.loggedIn = catchAsyncFn(async (req, res, next) => {
+  const { email } = req.user;
+  const token = req.cookies.jwt;
+
+  const user = {
+    email,
+    token,
+  };
+
+  res.status(200).json({
+    status: 'success',
+    user,
   });
 });
