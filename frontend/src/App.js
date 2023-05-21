@@ -1,10 +1,7 @@
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Container } from 'react-bootstrap';
-import Header from './components/layout/Header';
 import Home from './pages/Home';
 import Read from './pages/Read';
 import Login from './pages/Login';
@@ -13,6 +10,7 @@ import PrivateRoute from './components/utils/PrivateRoute';
 import { useSelector, useDispatch } from 'react-redux';
 import { loggedIn, reset } from './features/auth/authSlice';
 import './App.css';
+import Layout from './components/layout/Layout';
 
 function App() {
   const dispatch = useDispatch();
@@ -29,8 +27,7 @@ function App() {
   return (
     <>
       <Router>
-        <Header />
-        <Container className="main-container">
+        <Layout>
           <Routes>
             <Route
               path="/"
@@ -58,7 +55,7 @@ function App() {
             />
             <Route path="/login" element={<Login />} />
           </Routes>
-        </Container>
+        </Layout>
       </Router>
       <ToastContainer />
     </>
