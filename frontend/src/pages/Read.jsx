@@ -110,6 +110,7 @@ function Read() {
               width="80vw"
               showGutter={true}
               highlightActiveLine={true}
+              setOptions={{ useWorker: false }}
             />
           </Container>
         </Card>

@@ -34,7 +34,6 @@ function Home() {
     return <Spinner />;
   }
 
-  console.log(isLoading, 'loading - comp');
   return (
     <Container fluid id="home-main-container">
       <UploadFile cb={fileUpload} />
