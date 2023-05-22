@@ -4,6 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Home from './pages/Home';
 import Read from './pages/Read';
+import NotFound from './pages/NotFound';
 import LoginRegister from './pages/LoginRegister';
 import Validate from './pages/Validate';
 import PrivateRoute from './components/utils/PrivateRoute';
@@ -29,6 +30,7 @@ function App() {
       <Router>
         <Layout>
           <Routes>
+            <Route path="*" element={<NotFound />} />
             <Route
               path="/"
               element={
