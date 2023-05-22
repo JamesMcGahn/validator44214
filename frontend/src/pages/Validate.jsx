@@ -69,7 +69,7 @@ function Validate() {
                   ? 'Please go back to the upload page and upload a x12 file.'
                   : ediPayload?.Result.Status === 'success'
                   ? 'Please validate a file.'
-                  : 'There are issues with reading file that was uploaded. Return the Read page.'}
+                  : 'There are issues with reading the file that was uploaded. Return the Read page to review.'}
               </p>
               {ediPayload && ediPayload?.Result.Status === 'success' && (
                 <Container className="d-flex justify-content-end" fluid>

@@ -22,7 +22,7 @@ function Home() {
 
   useEffect(() => {
     if (isSuccess && ediPayload) {
-      toast.success('File Read Succesfully');
+      toast.success('File Translated');
       dispatch(reset());
       navigate('/read');
     }
