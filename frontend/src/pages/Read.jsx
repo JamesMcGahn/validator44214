@@ -7,12 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { Card, Container, Button, Row, Col } from 'react-bootstrap/';
 import Spinner from '../components/ui/Spinner';
 import './read.css';
-import 'ace-builds';
 import AceEditor from 'react-ace';
-import 'ace-builds/webpack-resolver';
-import 'ace-builds/src-noconflict/mode-javascript';
-import 'ace-builds/src-noconflict/theme-monokai';
-import 'ace-builds/src-noconflict/ext-language_tools';
 
 function Read() {
   const dispatch = useDispatch();
