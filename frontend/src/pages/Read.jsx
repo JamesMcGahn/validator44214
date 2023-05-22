@@ -5,10 +5,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { validate, reset } from '../features/edi/ediSlice';
 import { useNavigate } from 'react-router-dom';
 import { Card, Container, Button, Row, Col } from 'react-bootstrap/';
-import AceEditor from 'react-ace';
 import Spinner from '../components/ui/Spinner';
 import './read.css';
-
+import 'ace-builds';
+import AceEditor from 'react-ace';
 import 'ace-builds/webpack-resolver';
 import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/theme-monokai';

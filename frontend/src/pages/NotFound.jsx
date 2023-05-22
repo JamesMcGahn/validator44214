@@ -9,7 +9,7 @@ function NotFound() {
     <Container className="notfound-page-main">
       <Card>
         <Card.Body>
-          <Card.Title>Ohh nooo.. We can't find that page'</Card.Title>
+          <Card.Title>Ohh nooo.. We can't find that page</Card.Title>
           <p>
             Looks like there was a mistake. We can't find the page that you were
             looking for.
